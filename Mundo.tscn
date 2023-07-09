@@ -1,0 +1,62 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Mundo.gd" type="Script" id=2]
+[ext_resource path="res://Mons.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Interfaz.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Sprites/grass_texture.png" type="Texture" id=5]
+[ext_resource path="res://Sonidos/GameOver.wav" type="AudioStream" id=6]
+[ext_resource path="res://Sonidos/[Chiptune Adventures] 1.ogg" type="AudioStream" id=7]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1024, 0, 0, 0, 0, 0, 1024, 600, 0, 0, 0, 0, 0, 600, 0, 0, 0, 0, 0, 0 )
+}
+
+[node name="Mundo" type="Node"]
+script = ExtResource( 2 )
+Mons = ExtResource( 3 )
+
+[node name="Fondo" type="TextureRect" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+
+[node name="MonsTimer" type="Timer" parent="."]
+wait_time = 0.3
+
+[node name="ScoreTimer" type="Timer" parent="."]
+
+[node name="InicioTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="PosicionInicio" type="Position2D" parent="."]
+position = Vector2( 512, 300 )
+
+[node name="Camino" type="Path2D" parent="."]
+curve = SubResource( 1 )
+
+[node name="MonsPos" type="PathFollow2D" parent="Camino"]
+
+[node name="Interfaz" parent="." instance=ExtResource( 4 )]
+
+[node name="Game_Over" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+
+[node name="Musica" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+[connection signal="golpe" from="Player" to="." method="game_over"]
+[connection signal="timeout" from="MonsTimer" to="." method="_on_MonsTimer_timeout"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
+[connection signal="timeout" from="InicioTimer" to="." method="_on_InicioTimer_timeout"]
+[connection signal="Volume" from="Interfaz" to="." method="_on_Interfaz_Volume"]
+[connection signal="helping" from="Interfaz" to="." method="_on_Interfaz_helping"]
+[connection signal="iniciar_juego" from="Interfaz" to="." method="nuevo_juego"]

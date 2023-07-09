@@ -1,0 +1,144 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Avara.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Interfaz.gd" type="Script" id=2]
+[ext_resource path="res://teclas.png" type="Texture" id=3]
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0, 0, 0, 0.360784 )
+
+[sub_resource type="DynamicFont" id=1]
+size = 30
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 50
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 32
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 14
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=6]
+font_data = ExtResource( 1 )
+
+[node name="Interfaz" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="Panel" type="Panel" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+custom_styles/panel = SubResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreLabel" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -144.0
+margin_right = 140.0
+margin_bottom = 64.0
+custom_fonts/font = SubResource( 1 )
+text = "0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mensaje" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -202.5
+margin_top = -72.0
+margin_right = 202.5
+margin_bottom = 72.0
+custom_fonts/font = SubResource( 2 )
+text = "Ancient Evil"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BotonPlay" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -120.0
+margin_top = -130.0
+margin_right = 120.0
+margin_bottom = -42.0
+custom_fonts/font = SubResource( 3 )
+text = "JUGAR "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MensajeTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="HSlider" type="HSlider" parent="."]
+margin_left = 833.0
+margin_top = 13.0
+margin_right = 929.0
+margin_bottom = 29.0
+mouse_filter = 1
+min_value = -60.0
+max_value = 0.0
+value = -30.0
+scrollable = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VolButton" type="Button" parent="."]
+margin_left = 936.0
+margin_top = 8.0
+margin_right = 1012.0
+margin_bottom = 31.0
+custom_fonts/font = SubResource( 4 )
+text = "Volumen"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="help" type="Button" parent="."]
+margin_left = 988.0
+margin_top = 40.0
+margin_right = 1012.0
+margin_bottom = 66.0
+custom_fonts/font = SubResource( 6 )
+text = "?"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="helped" type="Label" parent="."]
+margin_left = 848.0
+margin_top = 40.0
+margin_right = 976.0
+margin_bottom = 128.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="teclas" type="Sprite" parent="helped"]
+position = Vector2( 64, 40 )
+scale = Vector2( 0.237988, 0.237988 )
+texture = ExtResource( 3 )
+[connection signal="pressed" from="BotonPlay" to="." method="_on_BotonPlay_pressed"]
+[connection signal="timeout" from="MensajeTimer" to="." method="_on_MensajeTimer_timeout"]
+[connection signal="value_changed" from="HSlider" to="." method="_volumen"]
+[connection signal="pressed" from="VolButton" to="." method="_on_VolButton_pressed"]
+[connection signal="pressed" from="help" to="." method="_on_help_pressed"]
+[connection signal="gui_input" from="helped" to="." method="_on_helped_gui_input"]

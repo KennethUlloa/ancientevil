@@ -1,0 +1,9 @@
+Controles
+
+flecha arriba: mover hacia arriba
+flecha abajo: mover hacia abajo
+flecha derecha: mover hacia la derecha
+flecha izquierda: mover hacia la izquierda
+
+Por cada segundo que sobrevivas aumentas tu puntuación.
+La idea es evitar las bolas de fuego que aparecen por la pantalla.
